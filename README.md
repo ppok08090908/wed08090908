@@ -50,3 +50,43 @@
     <script src="script.js"></script>
 </body>
 </html>
+const quizData = [
+    {
+        question: "在電腦系統中，下列哪項是 1 GB 的準確數值？",
+        options: ["1000 MB", "1024 MB", "1024 KB", "1000 KB"],
+        correct: 1
+    },
+    {
+        question: "哪種協議用於安全網頁瀏覽？",
+        options: ["HTTP", "FTP", "HTTPS", "SMTP"],
+        correct: 2
+    }
+];
+
+let currentIdx = 0;
+
+function loadQuiz() {
+    const q = quizData[currentIdx];
+    document.getElementById('question').innerText = q.question;
+    let optionsHtml = '';
+    q.options.forEach((opt, index) => {
+        optionsHtml += `<input type="radio" name="answer" value="${index}"> ${opt}<br>`;
+    });
+    document.getElementById('options').innerHTML = optionsHtml;
+}
+
+function checkAnswer() {
+    const selected = document.querySelector('input[name="answer"]:checked');
+    if (!selected) return alert("請選擇一個答案");
+
+    const feedback = document.getElementById('feedback');
+    if (parseInt(selected.value) === quizData[currentIdx].correct) {
+        feedback.innerText = "正確！";
+        feedback.style.color = "green";
+    } else {
+        feedback.innerText = "錯誤，再試一次。";
+        feedback.style.color = "red";
+    }
+}
+
+loadQuiz();
